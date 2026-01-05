@@ -7,20 +7,36 @@ const { getWxSession } = require('../utils/wxAuth');
 // WeChat login
 const wxLogin = async (ctx) => {
   const { code } = ctx.request.body;
+  console.log('code: ', code);
+  
 
   if (!code) {
     return fail(ctx, 'Code is required');
   }
 
   try {
-    // Get openid from WeChat
-    const wxSession = await getWxSession(code);
-    const { openid } = wxSession;
+    let openid;
+
+    // Development mode: use fixed mock openid if WX_APP_SECRET is not configured
+    if (config.nodeEnv === 'development' && config.wxAppSecret === 'your_app_secret') {
+      console.log('Development mode: using fixed mock openid');
+      // Use fixed openid in dev mode so user data persists across logins
+      openid = 'mock_openid_dev_user_001';
+    } else {
+      // Production: get real openid from WeChat
+      const wxSession = await getWxSession(code);
+      openid = wxSession.openid;
+    }
 
     // Find or create user
     let user = await User.findOne({ openid });
     if (!user) {
-      user = await User.create({ openid });
+      // Set default nickname for dev mode
+      const defaultData = { openid };
+      if (config.nodeEnv === 'development') {
+        defaultData.nickname = 'Mrshi_Test';
+      }
+      user = await User.create(defaultData);
     }
 
     // Generate JWT token

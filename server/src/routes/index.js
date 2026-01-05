@@ -1,5 +1,6 @@
 const Router = require('koa-router');
 const userRouter = require('./user');
+const settingsRouter = require('./settings');
 
 const router = new Router();
 
@@ -14,5 +15,6 @@ router.get('/api/health', (ctx) => {
 
 // Register routes
 router.use(userRouter.routes());
+router.use(settingsRouter.routes());
 
 module.exports = router;

@@ -1,7 +1,9 @@
 import Taro from '@tarojs/taro'
 
-// API base URL - change this to your server address
-const BASE_URL = 'http://localhost:3000/api'
+// API base URL - automatically switch between dev and prod
+const BASE_URL = process.env.NODE_ENV === 'development'
+  ? 'http://localhost:3000/api'
+  : 'https://api.feeltalk.top/api'
 
 interface RequestOptions {
   url: string
@@ -21,6 +23,8 @@ const request = async <T = any>(options: RequestOptions): Promise<Response<T>> =
 
   // Get token from storage
   const token = Taro.getStorageSync('token')
+  console.log(`[Request] ${method} ${url}`, token ? '(with token)' : '(no token)')
+
   if (token) {
     header['Authorization'] = `Bearer ${token}`
   }

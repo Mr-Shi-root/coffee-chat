@@ -39,11 +39,38 @@
       border: none;
     }
 
-    .user-info {
-      text-align: center;
-      padding: 40px;
-      background-color: #fff;
-      border-radius: 12px;
+    .user-section {
+      .user-info {
+        text-align: center;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 12px;
+        margin-bottom: 40px;
+
+        .welcome {
+          font-size: 36px;
+          color: #333;
+        }
+      }
+
+      .menu-list {
+        .menu-btn {
+          width: 100%;
+          height: 88px;
+          line-height: 88px;
+          background-color: #fff;
+          color: #333;
+          font-size: 32px;
+          border-radius: 12px;
+          border: none;
+          margin-bottom: 20px;
+
+          &.logout-btn {
+            background-color: #fff;
+            color: #ff4d4f;
+          }
+        }
+      }
     }
   }
 }
