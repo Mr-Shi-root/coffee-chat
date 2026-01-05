@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Coffee Chat
 
 一个基于 Taro + Koa + MongoDB 的小程序项目。
@@ -80,3 +81,7 @@ WX_APP_SECRET=your_app_secret
 ### 前端
 
 修改 `client/src/services/request.ts` 中的 `BASE_URL` 为你的服务器地址。
+=======
+# coffee-chat
+# coffee-chat
+>>>>>>> 1da9ca450bbdb98f66d1d55b99fe8871d3cf47ba
